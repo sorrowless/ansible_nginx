@@ -4,6 +4,6 @@
 {% if v.find('\n') != -1 %}
 {{v}}
 {% else %}
-{% if v != "" %}{{ v.regex_replace("\;$",";\n   ").replace(" {"," {\n    ").replace(" }"," \n}\n") }}{% if v.find('{') == -1%};
+{% if v != "" %}{{ v | regex_replace("\;$",";\n   ") | replace(" {"," {\n    ") | replace(" }"," \n}\n") }}{% if v.find('{') == -1%};
 {% endif %}{% endif %}{% endif %}
 {% endfor %}
