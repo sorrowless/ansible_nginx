@@ -1,0 +1,23 @@
+---
+- name: Ensure APT official openresty key
+  become: yes
+  apt_key: url=http://openresty.org/package/pubkey.gpg
+  when: ansible_os_family == 'Debian'
+
+- name: Ensure APT official openresty repository
+  become: yes
+  apt_repository: repo="deb http://openresty.org/package/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main"
+  when: ansible_os_family == 'Debian'
+
+- name: Ensure RPM official openresty key
+  become: yes
+  rpm_key: key=http://openresty.org/package/pubkey.gpg
+  when: ansible_os_family == 'RedHat'
+
+- name: Ensure YUM official openresty repository
+  become: yes
+  get_url:
+    url: https://openresty.org/package/centos/openresty.repo
+    dest: /etc/yum.repos.d/openresty.repo
+    mode: '0644'
+  when: ansible_os_family == 'RedHat'

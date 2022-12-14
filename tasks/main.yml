@@ -16,9 +16,13 @@
   when: nginx_official_repo|bool
   tags: [packages, nginx]
 
+- include_tasks: openresty-official-repo.yml
+  when: openresty_install|bool
+  tags: [packages, openresty]
+
 - include_tasks: installation.packages.yml
   when: nginx_installation_type == "packages" and nginx_install
-  tags: [packages, nginx]
+  tags: [packages, nginx, openresty]
 
 - import_tasks: ensure-dirs.yml
   tags: [configuration, nginx]
